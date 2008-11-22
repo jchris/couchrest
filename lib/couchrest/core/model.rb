@@ -83,6 +83,14 @@ module CouchRest
       end
     end
 
+    def id
+      @model_hash['_id']
+    end
+
+    def rev
+      @model_hash['_rev']
+    end
+
     def [](key)
       @model_hash[key]
     end
@@ -161,7 +169,7 @@ module CouchRest
         keys.each do |method|
           key = method.to_s
           define_method "#{method}=" do |value|
-            self[key] = value
+            @model_hash[key] = value
           end
         end
       end
@@ -172,7 +180,7 @@ module CouchRest
         keys.each do |method|
           key = method.to_s
           define_method method do
-            self[key]
+            @model_hash[key]
           end
         end
       end
@@ -440,6 +448,14 @@ module CouchRest
         self.send("#{k}=",v)
       end
       save
+    end
+
+    def new_document?
+      !rev
+    end
+
+    def destroy
+      database.delete @model_hash
     end
 
     # for compatibility with old-school frameworks
