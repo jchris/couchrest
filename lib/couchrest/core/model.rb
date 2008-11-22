@@ -68,11 +68,11 @@ module CouchRest
   #  
   #     Article.by_tags :key => "ruby", :reduce => true
   #  
-  class Model < Hash
+  class Model
 
     # instantiates the hash by converting all the keys to strings.
     def initialize keys = {}
-      super()
+      @hash = {}
       apply_defaults
       keys.each do |k,v|
         self[k.to_s] = v
@@ -83,6 +83,14 @@ module CouchRest
       end
     end
 
+    def [](key)
+      @hash[key]
+    end
+
+    def []=(key, value)
+      @hash[key] = value
+    end
+    
     # this is the CouchRest::Database that model classes will use unless
     # they override it with <tt>use_database</tt>
     cattr_accessor :default_database
@@ -484,7 +492,7 @@ module CouchRest
     private
 
     def save_doc
-      result = database.save self
+      result = database.save @hash
       if result['ok']
         self['_id'] = result['id']
         self['_rev'] = result['rev']

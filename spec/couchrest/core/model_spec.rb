@@ -198,7 +198,7 @@ describe CouchRest::Model do
             "q" => "Carve the ___ of reality at the ___.",
             "a" => ["beast","joints"]
           },{
-            "q" => "Who layed the smack down on Leibniz's Law?",
+            "q" => 'Who layed the smack down on Leibniz\'s Law?',
             "a" => "Willard Van Orman Quine"
           }
         ]
