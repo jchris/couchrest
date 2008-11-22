@@ -68,16 +68,35 @@ module CouchRest
   #  
   #     Article.by_tags :key => "ruby", :reduce => true
   #  
-  class Model < Document
+
+  class Model
+    attr_reader :model_hash
+    protected :model_hash
 
     # instantiates the hash by converting all the keys to strings.
     def initialize keys = {}
-      super(keys)
+      @model_hash = {}
       apply_defaults
       cast_keys
       unless self['_id'] && self['_rev']
         self['couchrest-type'] = self.class.to_s
       end
+    end
+
+    def [](key)
+      @model_hash[key]
+    end
+
+    def []=(key, value)
+      @model_hash[key] = value
+    end
+    
+    def <=>(obj)
+      model_hash <=> obj.model_hash
+    end
+
+    def ==(obj)
+      model_hash == obj.model_hash
     end
 
     # this is the CouchRest::Database that model classes will use unless
@@ -431,7 +450,7 @@ module CouchRest
     # check new_document?
     def save actually=false
       if actually
-        super()
+        save_doc
       else
         if new_document?
           create
@@ -452,6 +471,15 @@ module CouchRest
     end
 
     private
+
+    def save_doc
+      result = database.save @model_hash
+      if result['ok']
+        self['_id'] = result['id']
+        self['_rev'] = result['rev']
+      end
+      result['ok']
+    end
 
     def apply_defaults
       if self.class.default
