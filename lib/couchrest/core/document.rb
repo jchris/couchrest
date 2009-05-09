@@ -1,16 +1,9 @@
-require 'delegate'
-
 module CouchRest  
   class Document < Response
 
-    # def self.inherited(subklass)
-    #   subklass.send(:extlib_inheritable_accessor, :database)
-    # end
-    
-    extlib_inheritable_accessor :database
     attr_accessor :database
     
-    # override the CouchRest::Model-wide default_database
+    # override the CouchRest default_database
     # This is not a thread safe operation, do not change the model
     # database at runtime.
     def self.use_database(db)

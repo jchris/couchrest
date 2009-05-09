@@ -36,13 +36,8 @@ module CouchRest
   autoload :Document,     'couchrest/core/document'
   autoload :Design,       'couchrest/core/design'
   autoload :View,         'couchrest/core/view'
-  autoload :Model,        'couchrest/core/model'
-  autoload :Pager,        'couchrest/helper/pager'
-  autoload :FileManager,  'couchrest/helper/file_manager'
-  autoload :Streamer,     'couchrest/helper/streamer'
-  autoload :Upgrade,      'couchrest/helper/upgrade'
-  
-  require File.join(File.dirname(__FILE__), 'couchrest', 'mixins')
+  autoload :Model,        'couchrest/core/model' 
+  autoload :Streamer,     'couchrest/helper/streamer' 
   
   # The CouchRest module methods handle the basic JSON serialization 
   # and deserialization, as well as query parameters. The module also includes

@@ -14,10 +14,6 @@ unless defined?(FIXTURE_PATH)
   TEST_SERVER.default_database = TESTDB
 end
 
-class Basic < CouchRest::ExtendedDocument
-  use_database TEST_SERVER.default_database
-end
-
 def reset_test_db!
   cr = TEST_SERVER
   db = cr.database(TESTDB)

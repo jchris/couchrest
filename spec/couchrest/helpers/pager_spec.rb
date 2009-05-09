@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require 'couchrest/helper/pager'
 
 describe CouchRest::Pager do
   before(:all) do

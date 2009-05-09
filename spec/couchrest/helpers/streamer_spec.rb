@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
+require 'couchrest/helper/streamer'
 
 describe CouchRest::Streamer do
   before(:all) do
