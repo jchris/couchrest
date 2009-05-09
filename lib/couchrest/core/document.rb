@@ -2,12 +2,21 @@ module CouchRest
   class Document < Response
 
     attr_accessor :database
-    
+  
     # override the CouchRest default_database
     # This is not a thread safe operation, do not change the model
     # database at runtime.
-    def self.use_database(db)
-      self.database = db
+    class << self
+      
+      def use_database(db)
+        @@class_databases ||= {}
+        @@class_databases[self.name] = db
+      end
+    
+      def class_database
+        @@class_databases ||= {}
+        @@class_databases[self.name]
+      end
     end
     
     def id
@@ -71,7 +80,7 @@ module CouchRest
     
     # Returns the document's database
     def database
-      @database || self.class.database
+      @database || self.class.class_database
     end
     
   end

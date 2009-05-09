@@ -3,10 +3,7 @@ require 'couchrest/helper/streamer'
 
 describe CouchRest::Streamer do
   before(:all) do
-    @cr = CouchRest.new(COUCHHOST)
-    @db = @cr.database(TESTDB)
-    @db.delete! rescue nil
-    @db = @cr.create_db(TESTDB) rescue nil
+    @db = reset_test_db!
     @streamer = CouchRest::Streamer.new(@db)
     @docs = (1..1000).collect{|i| {:integer => i, :string => i.to_s}}
     @db.bulk_save(@docs)

@@ -6,7 +6,7 @@ describe CouchRest::Document do
   
   before(:all) do
     @couch = CouchRest.new
-    @db    = @couch.database!(TESTDB)
+    @db = reset_test_db!
   end
 
   describe "[]=" do

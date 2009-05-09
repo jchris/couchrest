@@ -3,10 +3,7 @@ require 'couchrest/helper/pager'
 
 describe CouchRest::Pager do
   before(:all) do
-    @cr = CouchRest.new(COUCHHOST)
-    @db = @cr.database(TESTDB)
-    @db.delete! rescue nil
-    @db = @cr.create_db(TESTDB) rescue nil
+    @db = reset_test_db!
     @pager = CouchRest::Pager.new(@db)
   end
   

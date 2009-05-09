@@ -3,9 +3,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe CouchRest::Database do
   before(:each) do
     @cr = CouchRest.new(COUCHHOST)
-    @db = @cr.database(TESTDB)
-    @db.delete! rescue nil
-    @db = @cr.create_db(TESTDB) rescue nil
+    @db = reset_test_db!
   end
 
   describe "database name including slash" do
@@ -258,10 +256,11 @@ describe CouchRest::Database do
       @file.close
     end
     it "should save the attachment to a new doc" do
-      r = @db.put_attachment({'_id' => 'attach-this'}, 'couchdb.png', image = @file.read, {:content_type => 'image/png'})
+      r = @db.put_attachment({'_id' => 'attach-this-png'}, 'couchdb.png', image = @file.read, {:content_type => 'image/png'})
       r['ok'].should == true
-      doc = @db.get("attach-this")
+      doc = @db.get("attach-this-png")
       attachment = @db.fetch_attachment(doc,"couchdb.png")
+      attachment.length.should == image.length
       attachment.should == image
     end
   end
