@@ -1,5 +1,7 @@
 # CouchRest: CouchDB, close to the metal
 
+## Please use the copy of CouchRest found at [http://github.com/couchrest/couchrest](http://github.com/couchrest/couchrest)
+
 CouchRest is based on [CouchDB's couch.js test
 library](http://svn.apache.org/repos/asf/couchdb/trunk/share/www/script/couch.js),
 which I find to be concise, clear, and well designed. CouchRest lightly wraps
