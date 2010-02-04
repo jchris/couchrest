@@ -128,9 +128,9 @@ module CouchRest
     # When creating a document, both the create and the save callbacks will be triggered.
     def create(bulk = false)
       caught = catch(:halt)  do
-        _run_create_callbacks do
-            _run_save_callbacks do
-              create_without_callbacks(bulk)
+        _run_save_callbacks do
+          _run_create_callbacks do
+            create_without_callbacks(bulk)
           end
         end
       end
@@ -171,9 +171,7 @@ module CouchRest
     def save(bulk = false)
       caught = catch(:halt)  do
         if self.new_document?
-          _run_save_callbacks do
-            save_without_callbacks(bulk)
-          end
+          create(bulk)
         else
           update(bulk)
         end
