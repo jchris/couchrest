@@ -38,7 +38,7 @@ if RUBY_VERSION.to_f < 1.9
           if IO.select([@io], nil, nil, @read_timeout)
             retry
           else
-            raise Timeout::TimeoutError
+            raise Timeout::Error
           end
         end
       else
