@@ -1,3 +1,7 @@
+# Thanks for all the Fish!
+
+No longer under development by Chef.
+
 # CouchRest: CouchDB, close to the metal
 
 CouchRest is based on [CouchDB's couch.js test
